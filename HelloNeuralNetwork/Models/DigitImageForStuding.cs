@@ -1,23 +1,18 @@
-﻿using MathNet.Numerics.LinearAlgebra;
+﻿using HelloNeuralNetwork.Helpers;
+using MathNet.Numerics.LinearAlgebra;
 
 namespace HelloNeuralNetwork.Models
 {
     public class DigitImageForStuding : DigitImage
     {
 
+        private readonly MatrixHelpers _helpers = new MatrixHelpers();
+
         public Matrix<double> Label { get; }
 
         public DigitImageForStuding(double[,] pixels, byte label) : base(pixels)
         {
-            Label = VectorizedResult(label);
-        }
-
-        private Matrix<double> VectorizedResult(byte label)
-        {
-            var vectorized = Matrix<double>.Build.Dense(10, 1);
-            vectorized[label, 0] = 1;
-
-            return vectorized;
+            Label = _helpers.VectorizedResult(label);
         }
 
         public override string ToString()

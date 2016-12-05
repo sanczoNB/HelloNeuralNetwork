@@ -3,7 +3,7 @@
     public class DigitImageForEvaluating : DigitImage
     {
 
-        public int Label { get; }
+        public byte Label { get; }
 
         public DigitImageForEvaluating(double[,] pixels, byte label) : base(pixels)
         {

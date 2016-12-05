@@ -1,36 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using MathNet.Numerics.LinearAlgebra;
+using ManyConsole;
 
 namespace HelloNeuralNetwork
 {
     class Program
     {
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
-            Matrix<Double> m1 = Matrix<Double>.Build.DiagonalIdentity(4,4);
 
-            double[,] x = {{ 1.0 },{ 3.0},{2.0} };
+            // locate any commands in the assembly (or use an IoC container, or whatever source)
+            var commands = GetCommands();
 
-            double[,] y = { { 3.0} , { 1.5} , { 7.0 } };
+            // then run them.
+            return ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
 
-            m1 = Matrix<double>.Build.DenseOfArray(x);
-
-            var m2 = Matrix<double>.Build.DenseOfArray(y);
-
-            var hardman = m1.PointwiseMultiply(m2);
-
-            var m = Matrix<double>.Build.DenseOfArray(x);
-
-            var a = new List<int> {2,3,4,5};
-
-            var sub = a.GetRange(2,2);
-
-            m = 2 * m;
-
-            var simulator = new Simulator();
-
-            simulator.SimpleLearnig();
         }
+
+        public static IEnumerable<ConsoleCommand> GetCommands()
+        {
+            return ConsoleCommandDispatcher.FindCommandsInSameAssemblyAs(typeof(Program));
+        }
+
     }
 }
